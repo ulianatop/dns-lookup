@@ -21,12 +21,13 @@ public class NetworkInspector {
 
         // Connect using HTTPS
         String url = "https://" + hostname;
-
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url)).build();
         HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
 
         System.out.println("HTTPS Connection Successful");
         System.out.println("Status Code: " + response.statusCode());
+        System.out.println("TLS Version: " + response.sslSession().get().getProtocol());
+        System.out.println("Response Size: " + response.body().length + " bytes");
     }
 }
